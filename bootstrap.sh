@@ -26,6 +26,8 @@ $PYTHON_BIN -m venv .venv
 
 pip install -r requirements.txt
 
+ansible-playbook ansible/site.yml
+
 cd "$PWD_ORIG"
 rm -rf $BASE_DIR
 
