@@ -1,12 +1,17 @@
 #!/bin/bash
 
+PWD_ORIG=$(pwd)
 BASE_DIR=$(mktemp -d)
 
 echo cd $BASE_DIR
 
 cd $BASE_DIR
 
-git clone https://github.com/silenceofthelam/iac
+git clone https://github.com/silenceofthelam/iac && cd iac
+
+if [ -n "$1" ]; then
+	git checkout "$1"
+fi
 
 PYTHON_BIN=$(which python3)
 PYTHON_VERSION=$(basename $PYTHON_BIN)
@@ -21,7 +26,7 @@ $PYTHON_BIN -m venv .venv
 
 pip install ansible
 
-cd - 
+cd "$PWD_ORIG"
 rm -rf $BASE_DIR
 
 
