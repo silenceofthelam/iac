@@ -24,7 +24,7 @@ $PYTHON_BIN -m venv .venv
 
 . .venv/bin/activate
 
-pip install ansible
+pip install -r requirements.txt
 
 cd "$PWD_ORIG"
 rm -rf $BASE_DIR
