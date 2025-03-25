@@ -1,0 +1,5 @@
+# List of dictionaries of NFS exports to mount locally.
+# Each dictionary must contain a name and a mount key.
+# Optional keys include mount_options.
+# i.e. { name: nfs.server:/path, mount: /local/path, options: "rsize=8192,wsize=8192" }
+nfs_client_mounts: []

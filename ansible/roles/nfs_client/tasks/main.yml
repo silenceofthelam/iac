@@ -1,0 +1,26 @@
+- name: Ensure ansible_facts used by role
+  ansible.builtin.setup:
+    gather_subset: min
+  when: not ansible_facts.keys() | list | intersect(__nfs_client_required_facts) == __nfs_client_required_facts
+- name: Set platform/version specific variables
+  ansible.builtin.include_vars: "{{ __nfs_client_vars_file }}"
+  loop:
+    - "{{ ansible_facts['os_family'] }}.yml"
+    - "{{ ansible_facts['distribution'] }}.yml"
+    - "{{ ansible_facts['distribution'] }}_{{ ansible_facts['distribution_major_version'] }}.yml"
+    - "{{ ansible_facts['distribution'] }}_{{ ansible_facts['distribution_version'] }}.yml"
+  vars:
+    __nfs_client_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __nfs_client_vars_file is file
+- name: Install Required Packages
+  ansible.builtin.package:
+    name: "{{ nfs_client_packages }}"
+    state: present
+- name: NFS Mounts
+  ansible.posix.mount:
+    path: "{{ item.mount }}"
+    src: "{{ item.name }}"
+    opts: "{{ item.mount_options if 'mount_options' in item else 'rsize=8192,wsize=8192,timeo=14,intr' }}"
+    fstype: nfs
+    state: mounted
+  loop: "{{ nfs_client_mounts }}"

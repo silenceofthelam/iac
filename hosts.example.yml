@@ -1,0 +1,8 @@
+# Copy this file to your ~/.ansible/inventory directory.
+# Replace or update any variables to achieve the desired configuration
+targets:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_become: true
+      ansible_become_method: sudo

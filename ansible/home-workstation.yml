@@ -1,0 +1,5 @@
+- name: Home Workstations
+  hosts: targets
+  gather_facts: false
+  roles:
+    - role: nfs_client
