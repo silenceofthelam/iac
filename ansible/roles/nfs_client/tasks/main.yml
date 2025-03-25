@@ -20,7 +20,7 @@
   ansible.posix.mount:
     path: "{{ item.mount }}"
     src: "{{ item.name }}"
-    opts: "{{ item.mount_options if 'mount_options' in item else 'rsize=8192,wsize=8192,timeo=14,intr' }}"
+    opts: "{{ item.mount_options if 'mount_options' in item else 'defaults' }}"
     fstype: nfs
     state: mounted
   loop: "{{ nfs_client_mounts }}"
