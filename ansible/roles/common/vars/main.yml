@@ -1,0 +1,5 @@
+__common_required_facts:
+  - distribution
+  - distribution_major_version
+  - distribution_version
+  - os_family
