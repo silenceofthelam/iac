@@ -1,0 +1,10 @@
+- name: Site
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Ping my host
+      ansible.builtin.ping:
+    - name: Facts
+      ansible.builtin.debug:
+        var: ansible_facts
