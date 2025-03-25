@@ -1,2 +1,11 @@
 # List of dictionaries of users to add to the system
+# Users should contain at a minimum a name and password key.
+# Optional keys include groups, home, and uid.
+# i.e. { name: user, password: hashed_pass, groups: ['sudo'], home: /home/user2, uid: 1500 }
+# Use the mkpasswd utility to create a hashed password.
 common_users: []
+# List of dictionaries of disks to be mounted and added to fstab
+# Disks should contain the name of the disk, the mount point, and file type.
+# Optionally, disks can include mount_options
+# i.e. { name: /dev/sda1, mount: /srv, mount_options: "ro,noatim" }
+common_disk_mounts: []

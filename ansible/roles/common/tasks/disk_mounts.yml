@@ -1,0 +1,8 @@
+- name: disk_mounts | Mount Disks
+  ansible.posix.mount:
+    fstype: "{{ item.fstype }}"
+    opts: "{{ item.mount_options if 'mount_options' in item else 'defaults' }}"
+    path: "{{ item.mount }}"
+    src: "{{ item.name }}"
+    state: mounted
+  loop: "{{ common_disk_mounts }}"
