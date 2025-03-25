@@ -1,2 +1,21 @@
 common_system_packages:
+  - 1password
+  - 1password-cli
+  - dnsutils
+  - encfs
+  - ffmpeg
+  - flac
+  - iotop
+  - libvirt-daemon-system
   - mdadm
+  - ntp
+  - qemu-kvm
+  - radeontop
+  - restic
+  - sudo
+  - swtpm
+  - unzip
+  - vim
+  - virt-manager
+  - wine
+  - wireshark

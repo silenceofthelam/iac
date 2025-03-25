@@ -12,9 +12,9 @@
   vars:
     __common_vars_file: "{{ role_path }}/vars/{{ item }}"
   when: __common_vars_file is file
-- name: System Packages
-  ansible.builtin.package:
-    name: "{{ common_system_packages }}"
 - name: Users
   ansible.builtin.include_tasks:
     file: "{{ role_path }}/tasks/users.yml"
+- name: Packages
+  ansible.builtin.include_tasks:
+    file: "{{ role_path }}/tasks/packages.yml"

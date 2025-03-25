@@ -1,10 +1,11 @@
 - name: users | Add users to system
   ansible.builtin.user:
-    create_home: false
-    groups: "{{ item.groups if 'groups' in item else ''}}"
+    create_home: true
+    groups: "{{ item.groups if 'groups' in item else '' }}"
     home: "{{ item.home if 'home' in item else '/home/' + item.name }}"
     name: "{{ item.name }}"
     password: "{{ item.password }}"
+    shell: "{{ item.shell if 'shell' in item else '/bin/bash' }}"
     uid: "{{ item.uid if 'uid' in item else None }}"
     state: present
   loop: "{{ common_users }}"

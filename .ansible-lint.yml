@@ -1,4 +1,6 @@
 # .ansible-lint
 project_dir: ansible
+warn_list:
+  - yaml[line-length]
 enable_list:
   - name[prefix]

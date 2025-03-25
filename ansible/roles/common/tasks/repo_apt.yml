@@ -1,0 +1,39 @@
+- name: repo_apt | Include Variables
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/vars/repo_apt.yml"
+- name: repo_apt | Set dpgk_architecture fact
+  ansible.builtin.set_fact:
+    dpkg_architecture: "{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else 'i386' }}"
+    cacheable: true
+- name: repo_apt | 1Password GPG Key
+  ansible.builtin.apt_key:
+    url: "https://downloads.1password.com/linux/keys/1password.asc"
+    keyring: /etc/apt/trusted.gpg.d/1password.gpg
+    state: present
+- name: repo_apt | 1Password Debsig Directory
+  ansible.builtin.file:
+    path: "/etc/debsig/policies/{{ __common_repo_apt_1password_debsig }}"
+    mode: "0755"
+    state: directory
+- name: repo_apt | 1Password Debsig Policy
+  ansible.builtin.get_url:
+    url: "https://downloads.1password.com/linux/debian/debsig/1password.pol"
+    dest: "/etc/debsig/policies/{{ __common_repo_apt_1password_debsig }}/1password.pol"
+    mode: "0644"
+- name: repo_apt | 1Password Debsig GPG Directory
+  ansible.builtin.file:
+    path: "/usr/share/debsig/keyrings/{{ __common_repo_apt_1password_debsig }}"
+    mode: "0755"
+    state: directory
+- name: repo_apt | 1Password Debsig GPG Key
+  ansible.builtin.get_url:
+    url: "https://downloads.1password.com/linux/keys/1password.asc"
+    dest: "/usr/share/debsig/keyrings/{{ __common_repo_apt_1password_debsig }}/debsig.gpg"
+    mode: "0644"
+- name: repo_apt | 1Password Repository
+  ansible.builtin.apt_repository:
+    repo: >
+      deb [arch={{ ansible_facts['dpkg_architecture'] }} signed_by=/etc/apt/trusted.gpg.d/1password.gpg] https://downloads.1password.com/linux/debian/{{ ansible_facts['dpkg_architecture'] }} stable main
+
+    filename: 1password
+    state: present

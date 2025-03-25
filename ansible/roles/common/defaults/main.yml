@@ -9,3 +9,7 @@ common_users: []
 # Optionally, disks can include mount_options
 # i.e. { name: /dev/sda1, mount: /srv, mount_options: "ro,noatim" }
 common_disk_mounts: []
+# List of packages to be installed
+common_extra_packages: []
+# List of Snap packages to be installed
+common_extra_snaps: []
