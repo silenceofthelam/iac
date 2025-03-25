@@ -1,0 +1,12 @@
+- name: packages | Repositories
+  ansible.builtin.include_tasks:
+    file: "{{ role_path }}/tasks/repo_{{ ansible_facts['pkg_mgr'] }}.yml"
+- name: packages | System Packages
+  ansible.builtin.package:
+    name: "{{ common_system_packages }}"
+- name: packages | Extra Packages
+  ansible.builtin.package:
+    name: "{{ common_extra_packages }}"
+- name: packages | Snaps
+  community.general.snap:
+    name: "{{ common_extra_snaps }}"

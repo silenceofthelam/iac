@@ -1,4 +1,6 @@
 common_system_packages:
+  - 1password
+  - 1password-cli
   - dnsutils
   - encfs
   - ffmpeg
