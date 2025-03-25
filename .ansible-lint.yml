@@ -1,0 +1,4 @@
+# .ansible-lint
+project_dir: ansible
+enable_list:
+  - name[prefix]

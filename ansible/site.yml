@@ -1,10 +1,5 @@
 - name: Site
-  hosts: localhost
-  connection: local
+  hosts: targets
   gather_facts: false
-  tasks:
-    - name: Ping my host
-      ansible.builtin.ping:
-    - name: Facts
-      ansible.builtin.debug:
-        var: ansible_facts
+- name: Home Workstations
+  ansible.builtin.import_playbook: home-workstation.yml

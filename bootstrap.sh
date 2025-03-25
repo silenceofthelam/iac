@@ -1,7 +1,11 @@
 #!/bin/bash
 
-PWD_ORIG=$(pwd)
+ANSIBLE_INVENTORY=hosts.example.yml
 BASE_DIR=$(mktemp -d)
+CUSTOM_ENV=1
+PWD_ORIG=$(pwd)
+PYTHON_BIN=$(which python3)
+PYTHON_VERSION=$(basename "$PYTHON_BIN")
 
 echo cd "$BASE_DIR"
 
@@ -13,21 +17,27 @@ if [ -n "$1" ]; then
 	git checkout "$1"
 fi
 
-PYTHON_BIN=$(which python3)
-PYTHON_VERSION=$(basename "$PYTHON_BIN")
-
-echo Using Python at "$PYTHON"
-
-sudo apt-get install -y "$PYTHON_VERSION"-venv
-
-"$PYTHON_BIN" -m venv .venv
-
-# shellcheck source=/dev/null
-. .venv/bin/activate
+if [ -z "$VIRTUAL_ENV" ]; then
+	CUSTOM_ENV=0
+	sudo apt-get install -y "$PYTHON_VERSION"-venv
+	echo Using System Python at "$PYTHON_BIN"
+	"$PYTHON_BIN" -m venv .venv
+	# shellcheck source=/dev/null
+	. .venv/bin/activate
+	PYTHON_BIN=$(which python3)
+fi
 
 pip install -r requirements.txt
 
-ansible-playbook ansible/site.yml
+if [ -d "$HOME/.ansible/inventory" ]; then
+	ANSIBLE_INVENTORY="$HOME/.ansible/inventory"
+fi
+
+ansible-playbook ansible/site.yml -i "$ANSIBLE_INVENTORY"
+
+if [ "$CUSTOM_ENV" == "0" ]; then
+	deactivate
+fi
 
 cd "$PWD_ORIG" || exit
 rm -rf "$BASE_DIR"
