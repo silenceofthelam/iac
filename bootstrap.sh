@@ -33,7 +33,7 @@ if [ -d "$HOME/.ansible/inventory" ]; then
 	ANSIBLE_INVENTORY="$HOME/.ansible/inventory"
 fi
 
-ansible-playbook ansible/site.yml -i "$ANSIBLE_INVENTORY"
+ansible-playbook ansible/site.yml -i "$ANSIBLE_INVENTORY" --ask-become-pass
 
 if [ "$CUSTOM_ENV" == "0" ]; then
 	deactivate
