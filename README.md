@@ -12,3 +12,5 @@ curl <URL> | sh
 - RAID with MDADM [Inspiration](https://galaxy.ansible.com/ui/standalone/roles/mrlesmithjr/ansible-mdadm/documentation/)
 - Printers with CUPS (https://github.com/HP41/ansible-cups)
 - Extra Python versions using deadnakes
+- AMD GPU/ROCM
+- Docker
