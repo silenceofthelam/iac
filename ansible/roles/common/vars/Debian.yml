@@ -14,6 +14,7 @@ common_system_packages:
   - restic
   - sudo
   - swtpm
+  - unattended-upgrades
   - unzip
   - vim
   - virt-manager

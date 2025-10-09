@@ -1,0 +1,5 @@
+- name: Ensure unattended-upgrades is Installed
+  ansible.builtin.package:
+    name:
+      - unattended-upgrades
+    state: present
