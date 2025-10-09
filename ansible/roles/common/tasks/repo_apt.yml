@@ -1,6 +1,3 @@
-- name: repo_apt | Include Variables
-  ansible.builtin.include_vars:
-    file: "{{ role_path }}/vars/repo_apt.yml"
 - name: repo_apt | Set dpgk_architecture fact
   ansible.builtin.set_fact:
     __common_dpkg_architecture: "{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else 'i386' }}"

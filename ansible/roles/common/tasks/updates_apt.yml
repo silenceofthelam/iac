@@ -1,0 +1,12 @@
+- name: updates_apt | Ensure unattended-upgrades is Installed
+  ansible.builtin.package:
+    name:
+      - unattended-upgrades
+    state: present
+- name: updates_apt | Ensure unattended-upgrades is Configured
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/70unattended-upgrades-local.j2"
+    dest: "/etc/apt/apt.conf.d/70unattended-upgrades-local"
+    group: root
+    owner: root
+    mode: "0644"
