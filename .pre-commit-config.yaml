@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-executables-have-shebangs
       - id: check-json
@@ -14,15 +14,15 @@ repos:
       - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck
   - repo: https://github.com/google/yamlfmt
-    rev: v0.16.0
+    rev: v0.17.2
     hooks:
       - id: yamlfmt
   - repo: https://github.com/crate-ci/typos
-    rev: v1.30.2
+    rev: v1.38.1
     hooks:
       - id: typos
   - repo: https://github.com/codespell-project/codespell
@@ -32,10 +32,17 @@ repos:
         additional_dependencies:
           - tomli
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.4.1
+    rev: v4.9.1
     hooks:
       - id: commitizen
   - repo: https://github.com/ansible/ansible-lint
-    rev: v25.1.3
+    rev: v25.8.2
     hooks:
       - id: ansible-lint
+        additional_dependencies:
+          - ansible-core~=2.18.0
+        stages:
+          - pre-commit
+          - pre-merge-commit
+          - pre-push
+          - manual
