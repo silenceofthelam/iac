@@ -18,3 +18,6 @@
 - name: Packages
   ansible.builtin.include_tasks:
     file: "{{ role_path }}/tasks/packages.yml"
+- name: Updates
+  ansible.builtin.include_tasks:
+    file: "{{ role_path }}/tasks/updates_{{ ansible_facts['pkg_mgr'] }}.yml"
